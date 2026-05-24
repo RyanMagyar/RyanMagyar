@@ -10,16 +10,15 @@
     />
     <style>
       :root {
-        --bg: #0b1020;
-        --bg-soft: #121933;
-        --card: rgba(18, 25, 51, 0.9);
-        --text: #eef2ff;
-        --muted: #b8c0e0;
-        --accent: #7c9cff;
-        --accent-2: #8ef0d1;
-        --border: rgba(255, 255, 255, 0.08);
-        --shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
-        --max: 1100px;
+        --bg: #11100e;
+        --panel: #191714;
+        --text: #f5efe3;
+        --muted: #b9b0a1;
+        --line: #39352d;
+        --accent: #8fd694;
+        --accent-2: #ff714d;
+        --gold: #f4c95d;
+        --max: 1160px;
       }
 
       * {
@@ -32,18 +31,25 @@
 
       body {
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background:
-          radial-gradient(circle at top left, rgba(124, 156, 255, 0.18), transparent 28%),
-          radial-gradient(circle at top right, rgba(142, 240, 209, 0.16), transparent 24%),
-          linear-gradient(180deg, #0b1020 0%, #0f1630 100%);
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          var(--bg);
+        background-size: 28px 28px;
         color: var(--text);
-        line-height: 1.6;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        line-height: 1.55;
       }
 
       a {
         color: inherit;
-        text-decoration: none;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.25em;
+      }
+
+      a:hover,
+      a:focus-visible {
+        color: var(--accent);
       }
 
       .container {
@@ -55,341 +61,366 @@
         position: sticky;
         top: 0;
         z-index: 10;
-        backdrop-filter: blur(14px);
-        background: rgba(11, 16, 32, 0.7);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--line);
+        background: rgba(17, 16, 14, 0.92);
+        backdrop-filter: blur(10px);
       }
 
       .nav-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 0;
+        min-height: 58px;
       }
 
       .brand {
+        color: var(--accent);
         font-weight: 800;
-        letter-spacing: 0.04em;
+        text-decoration: none;
       }
 
       .nav-links {
         display: flex;
-        gap: 1rem;
+        gap: 1.2rem;
         color: var(--muted);
-        font-size: 0.95rem;
+        font-size: 0.88rem;
       }
 
-      .nav-links a:hover,
-      .nav-links a:focus-visible,
-      .button:hover,
-      .button:focus-visible,
-      .project-links a:hover,
-      .project-links a:focus-visible,
-      .socials a:hover,
-      .socials a:focus-visible {
-        color: white;
+      .nav-links a {
+        text-decoration: none;
       }
 
       .hero {
-        padding: 5.5rem 0 4rem;
+        padding: clamp(3.5rem, 8vw, 7rem) 0 3.5rem;
       }
 
       .hero-grid {
         display: grid;
-        grid-template-columns: 1.35fr 0.85fr;
-        gap: 2rem;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: stretch;
       }
 
-      .eyebrow {
+      .label {
         display: inline-flex;
-        align-items: center;
         gap: 0.5rem;
-        padding: 0.45rem 0.8rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--muted);
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
+        color: var(--gold);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .label::before {
+        color: var(--accent-2);
+        content: ">";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
       }
 
       h1 {
-        margin: 0;
-        font-size: clamp(2.5rem, 6vw, 4.8rem);
-        line-height: 1.04;
+        max-width: 760px;
+        margin-bottom: 1.25rem;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(3.6rem, 10vw, 8.8rem);
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 0.86;
       }
 
-      .hero p {
+      .intro {
+        max-width: 720px;
+        margin-bottom: 0;
         color: var(--muted);
-        font-size: 1.08rem;
-        max-width: 62ch;
-        margin: 1.25rem 0 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+      }
+      
+      .intro-heading {
+        line-height: 1;
       }
 
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.9rem;
-        margin-top: 1.8rem;
+        gap: 0.75rem;
+        margin-top: 1.65rem;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.95rem 1.25rem;
-        border-radius: 14px;
-        border: 1px solid transparent;
-        font-weight: 700;
-        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      }
-
-      .button:hover,
-      .button:focus-visible {
-        transform: translateY(-2px);
+        min-height: 42px;
+        padding: 0.55rem 0.8rem;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+        font-weight: 800;
+        text-decoration: none;
       }
 
       .button.primary {
-        background: linear-gradient(135deg, var(--accent), #a087ff);
-        color: #08101f;
+        border-color: var(--accent);
+        color: var(--accent);
       }
 
-      .button.secondary {
-        background: rgba(255, 255, 255, 0.03);
-        border-color: var(--border);
-        color: var(--text);
-      }
-
-      .hero-card,
-      .project-card,
-      .about-card,
-      .footer-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        border-radius: 24px;
-      }
-
-      .hero-card {
-        padding: 1.5rem;
-      }
-
-      .stat-grid {
+      .profile {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
+        align-content: space-between;
+        border: 1px solid var(--line);
+        background: var(--panel);
       }
 
-      .stat {
+      .profile-top {
         padding: 1rem;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--line);
       }
 
-      .stat-label {
+      .profile-title {
+        margin-bottom: 0.15rem;
+        color: var(--accent);
+        font-size: 0.76rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .profile-name {
+        margin-bottom: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 1.55rem;
+        font-weight: 800;
+      }
+
+      .profile-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .profile-list li {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .profile-list li:last-child {
+        border-bottom: 0;
+      }
+
+      .profile-list span {
         color: var(--muted);
-        font-size: 0.85rem;
-        margin-bottom: 0.25rem;
       }
 
-      .stat-value {
-        font-size: 1.3rem;
+      .profile-list a {
+        color: var(--text);
         font-weight: 800;
       }
 
       section {
-        padding: 1rem 0 4rem;
+        padding: 3.5rem 0;
+        border-top: 1px solid var(--line);
       }
 
       .section-header {
         display: flex;
         justify-content: space-between;
-        align-items: end;
-        gap: 1rem;
-        margin-bottom: 1.4rem;
+        gap: 1.5rem;
+        margin-bottom: 1.25rem;
       }
 
       .section-header h2 {
-        margin: 0;
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.95;
       }
 
       .section-header p {
-        margin: 0;
+        max-width: 430px;
+        margin-bottom: 0;
         color: var(--muted);
-        max-width: 50ch;
       }
 
       .projects-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.25rem;
-      }
-
-      .experience-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.25rem;
+        border: 1px solid var(--line);
+        background: var(--panel);
       }
 
       .project-card {
-        padding: 1.35rem;
         display: flex;
         flex-direction: column;
-        min-height: 320px;
+        min-height: 390px;
+        padding: 1.15rem;
+        border-right: 1px solid var(--line);
       }
 
-      .project-top {
+      .project-card:last-child {
+        border-right: 0;
+      }
+
+      .project-index {
         display: flex;
         justify-content: space-between;
-        align-items: start;
-        gap: 1rem;
+        margin-bottom: 1.25rem;
+        color: var(--accent-2);
+        font-weight: 900;
       }
 
       .project-card h3 {
-        margin: 0.4rem 0 0.8rem;
-        font-size: 1.3rem;
+        margin-bottom: 0.85rem;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(1.45rem, 3vw, 2.25rem);
+        line-height: 1;
       }
 
-      .tag {
-        display: inline-block;
-        font-size: 0.78rem;
-        padding: 0.35rem 0.65rem;
-        border-radius: 999px;
-        background: rgba(124, 156, 255, 0.14);
-        color: #dbe4ff;
-        border: 1px solid rgba(124, 156, 255, 0.22);
+      .project-card p {
+        color: var(--muted);
       }
 
       .stack {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin: 1rem 0 1.1rem;
+        gap: 0.45rem;
+        margin: 1rem 0 1.3rem;
       }
 
       .stack span {
-        font-size: 0.82rem;
-        color: var(--muted);
-        border: 1px solid var(--border);
-        padding: 0.35rem 0.65rem;
-        border-radius: 999px;
-      }
-
-      .project-card p {
-        color: var(--muted);
-        margin: 0;
+        padding: 0.25rem 0.45rem;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--text);
+        font-size: 0.72rem;
+        font-weight: 800;
       }
 
       .project-links {
         display: flex;
-        gap: 1rem;
+        gap: 0.8rem;
         margin-top: auto;
-        padding-top: 1.4rem;
-        font-weight: 700;
       }
 
       .project-links a {
-        color: var(--accent-2);
+        color: var(--accent);
+        font-weight: 900;
       }
 
-      .experience-card {
-        padding: 1.35rem;
-      }
-
-      .experience-card h3 {
-        margin: 0.5rem 0 0.35rem;
-        font-size: 1.2rem;
-      }
-
-      .experience-meta {
-        color: var(--muted);
-        font-size: 0.92rem;
-        margin-bottom: 0.85rem;
-      }
-
-      .experience-card ul {
-        margin-top: 0;
-      }
-
-      .about-grid {
+      .skills-shell {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 1rem;
       }
 
-      .about-card {
-        padding: 1.4rem;
+      .skill-table,
+      .contact-box {
+        border: 1px solid var(--line);
+        background: var(--panel);
       }
 
-      .about-card h3 {
-        margin-top: 0;
+      .skill-row {
+        display: grid;
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 1rem;
+        padding: 0.95rem 1rem;
+        border-bottom: 1px solid var(--line);
       }
 
-      .about-card p,
-      .about-card li,
-      footer p {
+      .skill-row:last-child {
+        border-bottom: 0;
+      }
+
+      .skill-row strong {
+        color: var(--gold);
+      }
+
+      .skill-row span {
         color: var(--muted);
       }
 
-      ul {
-        margin: 0.8rem 0 0;
-        padding-left: 1.15rem;
+      .contact-box {
+        padding: 1rem;
+      }
+
+      .contact-box h3 {
+        margin-bottom: 0.9rem;
+        color: var(--accent);
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .contact-box a {
+        display: block;
+        margin-top: 0.6rem;
+        color: var(--text);
+        font-weight: 800;
       }
 
       footer {
-        padding: 0 0 2rem;
+        padding: 1.5rem 0 2rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.9rem;
       }
 
-      .footer-card {
-        padding: 1.4rem;
+      .footer-inner {
         display: flex;
         justify-content: space-between;
-        align-items: center;
         gap: 1rem;
-      }
-
-      .socials {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      .socials a {
-        color: var(--accent-2);
-        font-weight: 700;
       }
 
       @media (max-width: 900px) {
         .hero-grid,
-        .projects-grid,
-        .experience-grid,
-        .about-grid {
+        .skills-shell {
           grid-template-columns: 1fr;
         }
 
-        .hero {
-          padding-top: 3.5rem;
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .project-card {
+          min-height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .project-card:last-child {
+          border-bottom: 0;
         }
       }
 
       @media (max-width: 640px) {
         .nav-inner,
-        .footer-card,
-        .section-header {
-          flex-direction: column;
+        .section-header,
+        .footer-inner {
           align-items: flex-start;
+          flex-direction: column;
+          padding: 0.85rem 0;
         }
 
         .nav-links {
           flex-wrap: wrap;
         }
 
-        .stat-grid {
+        .profile-list li,
+        .skill-row {
           grid-template-columns: 1fr;
+          gap: 0.25rem;
+        }
+
+        h1 {
+          font-size: clamp(3.2rem, 18vw, 5rem);
         }
       }
     </style>
@@ -397,10 +428,11 @@
   <body>
     <nav class="nav">
       <div class="container nav-inner">
-        <a class="brand" href="#top">RM</a>
+        <a class="brand" href="#top">ryan.magyar</a>
         <div class="nav-links">
           <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <a href="#contact">Skills</a>
+          <a href="mailto:magyar.ryan@gmail.com">Email</a>
         </div>
       </div>
     </nav>
@@ -408,20 +440,32 @@
     <header class="hero" id="top">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Full-Stack Software Engineer</div>
-          <h1>Ryan Magyar</h1>
-          <p>
+          <div class="label">Full-stack software engineer</div>
+          <h1 class="intro-heading">Ryan Magyar</h1>
+          <p class="intro">
             I build full-stack applications with a focus on APIs, authentication,
             testing, and practical user-facing products. I especially enjoy
             creating personal projects around topics I am interested in, like
             music and movies, and turning those ideas into polished web apps.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="https://github.com/RyanMagyar" target="_blank" rel="noreferrer">View GitHub</a>
-            <a class="button secondary" href="https://linkedin.com/in/ryan-magyar-6a8b3b156" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="button primary" href="https://github.com/RyanMagyar" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="button" href="https://linkedin.com/in/ryan-magyar-6a8b3b156" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
 
+        <aside class="profile" aria-label="Portfolio profile">
+          <div class="profile-top">
+            <p class="profile-title">Profile</p>
+            <p class="profile-name">Ryan Magyar</p>
+          </div>
+          <ul class="profile-list">
+            <li><span>Focus</span><strong>APIs, auth, testing</strong></li>
+            <li><span>Frontend</span><strong>React, Next.js</strong></li>
+            <li><span>Backend</span><strong>Node.js, Flask</strong></li>
+            <li><span>Email</span><a href="mailto:magyar.ryan@gmail.com">magyar.ryan@gmail.com</a></li>
+          </ul>
+        </aside>
       </div>
     </header>
 
@@ -429,13 +473,16 @@
       <section id="projects">
         <div class="container">
           <div class="section-header">
-            <div>
-              <h2>Projects</h2>
-            </div>
+            <h2>Selected Projects</h2>
+            <p></p>
           </div>
 
           <div class="projects-grid">
             <article class="project-card">
+              <div class="project-index">
+                <span>01</span>
+                <span>Music</span>
+              </div>
               <h3>Playlist Rewind</h3>
               <p>
                 A React and Node.js app that scrapes Billboard chart data, lets users browse charts by date,
@@ -456,6 +503,10 @@
             </article>
 
             <article class="project-card">
+              <div class="project-index">
+                <span>02</span>
+                <span>Movies</span>
+              </div>
               <h3>Interactive Movie Review Platform</h3>
               <p>
                 A React and Flask web app for choosing, tracking, and rating movies,
@@ -476,6 +527,10 @@
             </article>
 
             <article class="project-card">
+              <div class="project-index">
+                <span>03</span>
+                <span>Client</span>
+              </div>
               <h3>Acorn Appraisals</h3>
               <p>
                 A client-focused business website built around clear service messaging,
@@ -492,7 +547,6 @@
                 <a href="https://acornappraisalservices.com" target="_blank" rel="noreferrer">Live Site</a>
               </div>
             </article>
-
           </div>
         </div>
       </section>
@@ -500,28 +554,35 @@
       <section id="contact">
         <div class="container">
           <div class="section-header">
-            <div>
-              <h2>Skills and Contact</h2>
-            </div>
+            <h2>Skills and Contact</h2>
+            <p></p>
           </div>
 
-          <div class="about-grid">
-            <div class="about-card">
-              <h3>Core Tools</h3>
-              <ul>
-                <li>Languages: JavaScript, Python, C++, SQL, HTML, CSS</li>
-                <li>Frameworks: React, Next.js, Node.js, Express, Flask, Qt</li>
-                <li>Testing: Cypress, Jest, Supertest</li>
-                <li>Tools and Platforms: PostgreSQL, Docker, GitHub Actions, Jenkins, Azure, AWS</li>
-              </ul>
+          <div class="skills-shell">
+            <div class="skill-table">
+              <div class="skill-row">
+                <strong>Languages</strong>
+                <span>JavaScript, Python, C++, SQL, HTML, CSS</span>
+              </div>
+              <div class="skill-row">
+                <strong>Frameworks</strong>
+                <span>React, Next.js, Node.js, Express, Flask, Qt</span>
+              </div>
+              <div class="skill-row">
+                <strong>Testing</strong>
+                <span>Cypress, Jest, Supertest</span>
+              </div>
+              <div class="skill-row">
+                <strong>Tools and Platforms</strong>
+                <span>PostgreSQL, Docker, GitHub Actions, Jenkins, Azure, AWS</span>
+              </div>
             </div>
-            <div class="about-card">
+
+            <div class="contact-box">
               <h3>Links</h3>
-              <ul>
-                <li><a href="https://linkedin.com/in/ryan-magyar-6a8b3b156" target="_blank" rel="noreferrer">LinkedIn</a></li>
-                <li><a href="https://github.com/RyanMagyar" target="_blank" rel="noreferrer">GitHub</a></li>
-                <li><a href="mailto:magyar.ryan@gmail.com">magyar.ryan@gmail.com</a></li>
-              </ul>
+              <a href="https://linkedin.com/in/ryan-magyar-6a8b3b156" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href="https://github.com/RyanMagyar" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="mailto:magyar.ryan@gmail.com">magyar.ryan@gmail.com</a>
             </div>
           </div>
         </div>
@@ -529,18 +590,9 @@
     </main>
 
     <footer>
-      <div class="container">
-        <div class="footer-card">
-          <div>
-            <strong>Ryan Magyar</strong>
-            <p>Full-stack software engineer focused on practical products, APIs, and data-driven applications.</p>
-          </div>
-          <div class="socials">
-            <a href="https://linkedin.com/in/ryan-magyar-6a8b3b156" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://github.com/RyanMagyar" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="mailto:magyar.ryan@gmail.com">Email</a>
-          </div>
-        </div>
+      <div class="container footer-inner">
+        <strong>Ryan Magyar</strong>
+        <span>Full-stack software engineer focused on practical products, APIs, and data-driven applications.</span>
       </div>
     </footer>
   </body>
